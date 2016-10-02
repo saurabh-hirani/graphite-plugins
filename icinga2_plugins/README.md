@@ -1,8 +1,8 @@
-#### Introduction
+## icinga2_service_state_metrics.py
+
+### Introduction
 
 This plugin takes [icinga2_api](https://github.com/saurabh-hirani/icinga2_api) connection parameters, target state (ok/warning/critical), a list of time slots (example: icinga2-time-slots.json) and gives metrics on how many services have been in that state for the given time slots.
-
-## icinga2_service_state_metrics.py
 
 ### Why?
 
