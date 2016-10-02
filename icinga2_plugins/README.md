@@ -102,7 +102,7 @@ sudo pip install icinga2_api slotter prettytable
     "host2!service2": 1475377506.875772,
     "host3!service3": 1475424395.995471,
     "host4!service4": 1475394225.861527,
-    "host5!check_all_disks-0": 1475426113.557184
+    "host5!service5": 1475426113.557184
   }
   ----------------
   ----------------
