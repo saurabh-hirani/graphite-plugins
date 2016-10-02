@@ -47,6 +47,26 @@ icinga2.services.state.warning.minutes.beyond.1-10 5 1475429031
 icinga2.services.state.warning.minutes.beyond.0-1 5 1475429031
 ```
 
+The output has two types of metrics - 'in' and 'beyond'.
+
+An 'in' metric e.g.
+
+```
+icinga2.services.state.warning.hours.in.1-2 1 1475429031
+```
+
+shows the number of services in the target state for that duration i.e. there is 1 service which is in warning state for time > 1 hour and time < 2 hours.
+
+A 'beyond' metric e.g.
+
+```
+icinga2.services.state.warning.hours.beyond.2-6 3 1475429031
+```
+
+shows the number of services in the target state beyond that duration i.e. there are 3 services which are in warning state for time > 6 hours.
+
+Look under the hood and check out an interesting use case of the [slotter](https://github.com/saurabh-hirani/slotter) module written by yours truly.
+
 - Get critical state metrics - same as above with 'warning' replaced by 'critical'
 
 - Get ok state metrics - same as above with 'critical' replaced by 'ok'
@@ -56,6 +76,7 @@ icinga2.services.state.warning.minutes.beyond.0-1 5 1475429031
 ```
 python icinga2_service_state_metrics.py --host icinga2-host --port 5665 --user root --password password --state warning --graphite-scheme icinga2.services.state
 
+----------------
 SLOTS:
 {
   "30-60 minutes": [],
