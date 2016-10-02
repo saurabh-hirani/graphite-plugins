@@ -6,7 +6,7 @@ This plugin takes [icinga2_api](https://github.com/saurabh-hirani/icinga2_api) c
 
 ### Why?
 
-Read [this](TODO)
+Read [this](http://saurabh-hirani.github.io/writing/2016/10/03/sla-metrics)
 
 ### Installation
 
