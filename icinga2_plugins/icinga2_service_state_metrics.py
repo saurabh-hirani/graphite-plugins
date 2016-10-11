@@ -21,6 +21,7 @@ import time
 import datetime
 
 import slotter
+from slotter.item import Item
 from icinga2_api import api
 from prettytable import PrettyTable
 from docopt import docopt
@@ -56,7 +57,7 @@ def _humanize_duration(duration):
 def print_slots_graphite(slotter_obj, graphite_scheme):
   """ Print graphite consumable output of the slot items """
   # print metrics count 'in' a slot e.g num warnings in the range of 1-2 hours
-  for slot in slotter_obj.get_slots():
+  for slot in slotter_obj.slots:
     items = slotter_obj.get_items(slot)
     slot_name = str(slot)
     time_range, time_type = slot_name.split(' ')
@@ -65,7 +66,7 @@ def print_slots_graphite(slotter_obj, graphite_scheme):
 
   # print metric count 'beyond' a slot i.e. num warnings beyond 1-2 hours
   beyond_count = 0
-  for slot in reversed(slotter_obj.get_slots()):
+  for slot in reversed(slotter_obj.slots):
     items = slotter_obj.get_items(slot)
     slot_name = str(slot)
     time_range, time_type = slot_name.split(' ')
@@ -77,10 +78,10 @@ def print_slots_table(slotter_obj):
   """ Print a table of the slot items """
   table = PrettyTable(['Host', 'Service', 'Duration'])
   table.align = 'l'
-  for slot in slotter_obj.get_slots():
+  for slot in slotter_obj.slots:
     for item in slotter_obj.get_items(slot):
-      host, service = item[0][0].split('!')
-      duration = item[0][1]
+      host, service = item.name.split('!')
+      duration = _humanize_duration(item.value)
       table.add_row([host, service, duration])
   print table
 
@@ -89,7 +90,7 @@ def slot_icinga2_results(slotter_obj, icinga2_results):
   curr = int(time.time())
   for service_name, timestamp in icinga2_results.iteritems():
     time_passed = curr - timestamp
-    slotter_obj.add_item((service_name, _humanize_duration(time_passed)), time_passed)
+    slotter_obj.add_item(Item(name=service_name, value=time_passed))
 
 def get_icinga2_results(args):
   """ Get service - timestamp mapping from icinga2 api """
